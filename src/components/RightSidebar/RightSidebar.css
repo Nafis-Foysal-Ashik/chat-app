@@ -1,0 +1,93 @@
+.rs {
+    color: white;
+    background: #001030;
+    position: relative;
+    height: 75vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hide scrollbar */
+.rs::-webkit-scrollbar {
+    display: none;
+}
+
+.rs-profile {
+    padding: 40px 20px; /* Reduced padding gives text more room */
+    text-align: center;
+    /* Removed max-width: 70% to prevent vertical text squashing */
+}
+
+.rs-profile img {
+    width: 110px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.rs-profile h3 {
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.rs-profile h3 .dot {
+    width: 10px;
+}
+
+.rs-profile p {
+    font-size: 12px;
+    opacity: 0.8;
+    font-weight: 300;
+    line-height: 1.5;
+    margin-top: 5px;
+}
+
+.rs hr {
+    border: 0.5px solid #ffffff30;
+    margin: 20px; /* Provides consistent spacing between sections */
+}
+
+/* Media Section Styling */
+.rs-media {
+    padding: 0px 20px;
+    flex-grow: 1; /* Pushes the logout button towards the bottom */
+}
+
+.rs-media p {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.rs-media div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates the 3-column grid */
+    gap: 8px;
+}
+
+
+.rs-media div img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Logout Button */
+.rs button {
+    background: #077EFF;
+    color: white;
+    border: none;
+    font-size: 14px;
+    padding: 10px 0px;
+    width: 80%;
+    margin: 20px auto; /* Centers the button horizontally */
+    border-radius: 25px;
+    cursor: pointer;
+}
