@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import './ChatBox.css'
 import assets from '../../assets/assets'
 import { AppContext } from '../../context/AppContext'
-import { arrayUnion, doc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { arrayUnion, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 
 const ChatBox = () => {
 
@@ -20,9 +21,29 @@ const ChatBox = () => {
             createdAt:new Date()
           })
         })
+        const userIDs = [chatUser.rId , userData.id];
+        userIDs.forEach(async(id)=>{
+          const userChatRef = doc(db , 'chats' , id);
+          const userChatsSnapshot = await getDoc(userChatRef);
+
+          if(userChatsSnapshot.exists())
+          {
+            const userChatData = userChatsSnapshot.data();
+            const chatIndex = userChatData.chatsData.findIndex((c)=>c.messageId == messagesId)
+            userChatData.chatsData[chatIndex].lastMessage = input.slice(0,30);
+            userChatData.chatsData[chatIndex].updateAt = Date.now();
+            if(userChatData.chatsData[chatIndex].rId === userData.id)
+            {
+              userChatData.chatsData[chatIndex].messageSeen = false;
+            }
+            await updateDoc(userChatRef,{
+              chatsData:userChatData.chatsData
+            })
+          }
+        })
       }
     } catch (error) {
-      
+      toast.error(error.message)
     }
   }
 
@@ -79,7 +100,7 @@ const ChatBox = () => {
           <label htmlFor="image">
             <img src={assets.gallery_icon} alt="" />
           </label>
-          <img src={assets.send_button} alt="" />
+          <img  onClick={sendMessage} src={assets.send_button} alt="" />
         </div>
     </div>
   ):
