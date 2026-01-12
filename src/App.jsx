@@ -13,19 +13,16 @@ const App = () => {
   const navigate = useNavigate();
   const {loadUserData} = useContext(AppContext)
 
-  useEffect(()=>{
-    onAuthStateChanged(auth,async (user) => {
-      if(user)
-      {
-        navigate('/chat')
-        await loadUserData(user.uid);
-      }
-      else
-      {
-        navigate('/')
-      }
-    })
-  },[])
+  useEffect(() => {
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      // REMOVED: navigate('/chat') - Do not navigate immediately
+      await loadUserData(user.uid);
+    } else {
+      navigate('/');
+    }
+  });
+}, []);
 
   return (
     <>
