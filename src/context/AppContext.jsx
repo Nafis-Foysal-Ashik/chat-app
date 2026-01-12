@@ -55,6 +55,7 @@ const AppContextProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         userData,
+        setUserData,
         chatData,
         loadUserData,
         messages,
